@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
   Leaf, 
   TreePine, 
@@ -19,7 +20,8 @@ const landscapeImages = [
 ];
 
 const Home = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const navigate = useNavigate()
 
   const heroVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -76,18 +78,8 @@ const Home = () => {
         </motion.div>
 
         {/* Navigation Buttons */}
-        <button 
-          onClick={handlePrevImage} 
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/50 p-2 rounded-full"
-        >
+
         
-        </button>
-        <button 
-          onClick={handleNextImage} 
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/50 p-2 rounded-full"
-        >
-          
-        </button>
 
         {/* Hero Text Overlay */}
         <motion.div 
@@ -105,7 +97,8 @@ const Home = () => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="bg-green-600 text-white px-6 py-3 rounded-full flex items-center space-x-2"
+                      className="bg-green-600 text-white px-6 py-3 rounded-full flex items-center space-x-2"
+                      onClick={()=>navigate("/services")}
           >
             <span>Explore Our Services</span>
             <ArrowRight />
