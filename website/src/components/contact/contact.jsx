@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   MapPin, 
@@ -8,46 +8,68 @@ import {
   Check, 
   AlertTriangle 
 } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
 
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41]
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
-
-const LeafletMap = () => {
-  // Coordinates for Harare, Zimbabwe
-  const position = [-17.8292, 31.0522];
-
-  return (
-    <MapContainer 
-      center={position} 
-      zoom={13} 
-      scrollWheelZoom={false}
-      className="w-full h-96 z-10"
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+const InteractiveMap = () => {
+    const mapRef = useRef(null);
+    const mapContainerRef = useRef(null);
+  
+    useEffect(() => {
+      // Shop coordinates (replace with actual location)
+      const shopLocation = [-17.7952976, 31.1201022]; 
+  
+      // Only initialize map if container exists
+      if (mapContainerRef.current && !mapRef.current) {
+        // Create map instance
+        const map = L.map(mapContainerRef.current).setView(shopLocation, 13);
+  
+        // Add tile layer (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+  
+        // Create custom marker icon
+        const customIcon = L.icon({
+          iconUrl: markerIcon,
+          shadowUrl: markerShadow,
+          iconSize: [25, 41],
+          iconAnchor: [12, 41]
+        });
+  
+        // Add marker for shop location
+        L.marker(shopLocation, { icon: customIcon })
+          .addTo(map)
+          .bindPopup('Organic Landscaping')
+          .openPopup();
+  
+        // Store map reference
+        mapRef.current = map;
+      }
+  
+      // Cleanup function
+      return () => {
+        if (mapRef.current) {
+          mapRef.current.remove();
+          mapRef.current = null;
+        }
+      };
+    }, []);
+  
+    return (
+      <div 
+        ref={mapContainerRef} 
+        className="w-full h-96 rounded-lg shadow-md"
       />
-      <Marker position={position}>
-        <Popup>
-          Organic Landscaping <br /> 651 North Road, Harare
-        </Popup>
-      </Marker>
-    </MapContainer>
-  );
-};
-
+    );
+  };  
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -90,7 +112,7 @@ const Contact = () => {
 
   return (
     <div className="bg-green-50 min-h-screen">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-24">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -254,9 +276,8 @@ const Contact = () => {
           </div>
           {/* Placeholder for map - in a real implementation, you'd use Google Maps or similar */}
           <div className="w-full h-96 bg-green-100 flex items-center justify-center">
-            <div className="text-center">
-              <LeafletMap />
-            </div>
+
+              <InteractiveMap />
           </div>
         </motion.div>
       </div>

@@ -98,7 +98,7 @@ const Portfolio = () => {
       <motion.div 
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-4 py-12"
+        className="container mx-auto px-4 py-24"
       >
         <h1 className="text-4xl font-bold text-green-900 text-center mb-8">
           Our Transformative Projects
