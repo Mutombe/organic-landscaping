@@ -24,7 +24,7 @@ const InteractiveMap = () => {
   
     useEffect(() => {
       // Shop coordinates (replace with actual location)
-      const shopLocation = [-17.7952976, 31.1201022]; 
+      const shopLocation = [-17.7801293,30.9900216]; 
   
       // Only initialize map if container exists
       if (mapContainerRef.current && !mapRef.current) {
@@ -47,7 +47,7 @@ const InteractiveMap = () => {
         // Add marker for shop location
         L.marker(shopLocation, { icon: customIcon })
           .addTo(map)
-          .bindPopup('Organic Landscaping')
+          .bindPopup('Tru Nature Landscaping')
           .openPopup();
   
         // Store map reference
@@ -142,11 +142,11 @@ const Contact = () => {
               {[
                 { 
                   icon: <MapPin className="text-green-600 w-6 h-6" />, 
-                  text: "651 North Road, Harare" 
+                  text: "Lomagundi Garden Centre Cnr Lomagundi, West Rd, Harare" 
                 },
                 { 
                   icon: <Phone className="text-green-600 w-6 h-6" />, 
-                  text: "+263 78 448 8794" 
+                  text: "0772952312" 
                 },
                 { 
                   icon: <Mail className="text-green-600 w-6 h-6" />, 

@@ -10,6 +10,61 @@ import {
   ArrowRight 
 } from 'lucide-react';
 
+const EcoPrinciplesCards = () => {
+  const principles = [
+    {
+      icon: <Leaf className="w-16 h-16 text-green-600" />,
+      title: "Sustainability",
+      description: "Every design minimizes environmental impact and promotes biodiversity.",
+      backgroundImage: "/pic2.jpg"
+    },
+    {
+      icon: <TreePine className="w-16 h-16 text-green-600" />,
+      title: "Native Ecology",
+      description: "We prioritize local plant species that naturally thrive in your environment.",
+      backgroundImage: "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('/api/placeholder/600/400?text=Native+Ecosystem')"
+    },
+    {
+      icon: <Sprout className="w-16 h-16 text-green-600" />,
+      title: "Adaptive Design",
+      description: "Landscapes that evolve and grow with your changing needs and local conditions.",
+      backgroundImage: "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('/api/placeholder/600/400?text=Adaptive+Landscape')"
+    }
+  ];
+
+  return (
+    <div className="grid md:grid-cols-3 gap-8">
+      {principles.map((principle, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ delay: index * 0.2 }}
+          viewport={{ once: true }}
+          className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl transition-all"
+          style={{ 
+            backgroundImage: principle.backgroundImage,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div className="flex justify-center mb-4">
+            {principle.icon}
+          </div>
+          <h3 className="text-2xl font-semibold text-green-800 mb-3">
+            {principle.title}
+          </h3>
+          <p className="text-green-700">
+            {principle.description}
+          </p>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+
+
 // Placeholder for actual image imports - you'll replace these with your actual image paths
 const landscapeImages = [
   '/pic2.jpg',
@@ -89,7 +144,7 @@ const Home = () => {
           className="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4"
         >
           <h1 className="text-5xl font-bold mb-4 drop-shadow-lg">
-            Organic Landscaping
+          Tru Nature Landscaping
           </h1>
           <p className="text-xl max-w-2xl mb-8 drop-shadow-md">
             Transforming Spaces, Nurturing Nature: Sustainable Landscapes That Tell Your Unique Story
@@ -124,44 +179,7 @@ const Home = () => {
         </motion.div>
 
         {/* Key Principles Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            { 
-              icon: <Leaf className="w-16 h-16 text-green-600" />, 
-              title: "Sustainability", 
-              description: "Every design minimizes environmental impact and promotes biodiversity." 
-            },
-            { 
-              icon: <TreePine className="w-16 h-16 text-green-600" />, 
-              title: "Native Ecology", 
-              description: "We prioritize local plant species that naturally thrive in your environment." 
-            },
-            { 
-              icon: <Sprout className="w-16 h-16 text-green-600" />, 
-              title: "Adaptive Design", 
-              description: "Landscapes that evolve and grow with your changing needs and local conditions." 
-            }
-          ].map((principle, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl transition-all"
-            >
-              <div className="flex justify-center mb-4">
-                {principle.icon}
-              </div>
-              <h3 className="text-2xl font-semibold text-green-800 mb-3">
-                {principle.title}
-              </h3>
-              <p className="text-green-700">
-                {principle.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+        <EcoPrinciplesCards />
       </div>
     </div>
   );

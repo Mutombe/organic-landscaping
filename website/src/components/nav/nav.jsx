@@ -68,7 +68,7 @@ const Navbar = () => {
           className="flex items-center space-x-2"
         >
           <Leaf className="text-green-300 w-10 h-10" />
-          <span className="text-2xl font-bold tracking-wider">Organic Landscaping</span>
+          <span className="text-2xl font-bold tracking-wider">Tru Nature Landscaping</span>
         </motion.div>
         
         {/* Mobile Menu Toggle */}
